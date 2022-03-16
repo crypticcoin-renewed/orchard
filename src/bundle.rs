@@ -9,7 +9,7 @@ use std::io;
 use blake2b_simd::Hash as Blake2bHash;
 use memuse::DynamicUsage;
 use nonempty::NonEmpty;
-use zcash_note_encryption::try_note_decryption;
+use crypticcoin_note_encryption::try_note_decryption;
 
 use crate::{
     address::Address,

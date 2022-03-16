@@ -4,7 +4,7 @@ use std::{convert::TryInto, fmt};
 
 use blake2b_simd::{Hash, Params};
 use group::ff::PrimeField;
-use zcash_note_encryption::{
+use crypticcoin_note_encryption::{
     BatchDomain, Domain, EphemeralKeyBytes, NotePlaintextBytes, OutPlaintextBytes,
     OutgoingCipherKey, ShieldedOutput, COMPACT_NOTE_SIZE, ENC_CIPHERTEXT_SIZE, NOTE_PLAINTEXT_SIZE,
     OUT_PLAINTEXT_SIZE,
@@ -250,7 +250,7 @@ impl BatchDomain for OrchardDomain {
 }
 
 /// Implementation of in-band secret distribution for Orchard bundles.
-pub type OrchardNoteEncryption = zcash_note_encryption::NoteEncryption<OrchardDomain>;
+pub type OrchardNoteEncryption = crypticcoin_note_encryption::NoteEncryption<OrchardDomain>;
 
 impl<T> ShieldedOutput<OrchardDomain, ENC_CIPHERTEXT_SIZE> for Action<T> {
     fn ephemeral_key(&self) -> EphemeralKeyBytes {
@@ -308,7 +308,7 @@ impl ShieldedOutput<OrchardDomain, COMPACT_NOTE_SIZE> for CompactAction {
 #[cfg(test)]
 mod tests {
     use rand::rngs::OsRng;
-    use zcash_note_encryption::{
+    use crypticcoin_note_encryption::{
         try_compact_note_decryption, try_note_decryption, try_output_recovery_with_ovk,
         EphemeralKeyBytes,
     };

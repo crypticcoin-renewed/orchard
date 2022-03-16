@@ -5,11 +5,11 @@ use std::io::Write;
 
 use crate::bundle::{Authorization, Authorized, Bundle};
 
-const ZCASH_ORCHARD_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrchardHash";
-const ZCASH_ORCHARD_ACTIONS_COMPACT_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrcActCHash";
-const ZCASH_ORCHARD_ACTIONS_MEMOS_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrcActMHash";
-const ZCASH_ORCHARD_ACTIONS_NONCOMPACT_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrcActNHash";
-const ZCASH_ORCHARD_SIGS_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxAuthOrchaHash";
+const CRYPTICCOIN_ORCHARD_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrchardHash";
+const CRYPTICCOIN_ORCHARD_ACTIONS_COMPACT_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrcActCHash";
+const CRYPTICCOIN_ORCHARD_ACTIONS_MEMOS_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrcActMHash";
+const CRYPTICCOIN_ORCHARD_ACTIONS_NONCOMPACT_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxIdOrcActNHash";
+const CRYPTICCOIN_ORCHARD_SIGS_HASH_PERSONALIZATION: &[u8; 16] = b"ZTxAuthOrchaHash";
 
 fn hasher(personal: &[u8; 16]) -> State {
     Params::new().hash_length(32).personal(personal).to_state()
@@ -31,10 +31,10 @@ fn hasher(personal: &[u8; 16]) -> State {
 pub(crate) fn hash_bundle_txid_data<A: Authorization, V: Copy + Into<i64>>(
     bundle: &Bundle<A, V>,
 ) -> Blake2bHash {
-    let mut h = hasher(ZCASH_ORCHARD_HASH_PERSONALIZATION);
-    let mut ch = hasher(ZCASH_ORCHARD_ACTIONS_COMPACT_HASH_PERSONALIZATION);
-    let mut mh = hasher(ZCASH_ORCHARD_ACTIONS_MEMOS_HASH_PERSONALIZATION);
-    let mut nh = hasher(ZCASH_ORCHARD_ACTIONS_NONCOMPACT_HASH_PERSONALIZATION);
+    let mut h = hasher(CRYPTICCOIN_ORCHARD_HASH_PERSONALIZATION);
+    let mut ch = hasher(CRYPTICCOIN_ORCHARD_ACTIONS_COMPACT_HASH_PERSONALIZATION);
+    let mut mh = hasher(CRYPTICCOIN_ORCHARD_ACTIONS_MEMOS_HASH_PERSONALIZATION);
+    let mut nh = hasher(CRYPTICCOIN_ORCHARD_ACTIONS_NONCOMPACT_HASH_PERSONALIZATION);
 
     for action in bundle.actions().iter() {
         ch.write_all(&action.nullifier().to_bytes()).unwrap();

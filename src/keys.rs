@@ -15,7 +15,7 @@ use group::{
 use pasta_curves::pallas;
 use rand::RngCore;
 use subtle::{Choice, ConditionallySelectable, ConstantTimeEq, CtOption};
-use zcash_note_encryption::EphemeralKeyBytes;
+use crypticcoin_note_encryption::EphemeralKeyBytes;
 
 use crate::{
     address::Address,

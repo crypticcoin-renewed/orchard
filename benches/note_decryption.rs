@@ -11,7 +11,7 @@ use orchard::{
     Anchor, Bundle,
 };
 use rand::rngs::OsRng;
-use zcash_note_encryption::{batch, try_compact_note_decryption, try_note_decryption};
+use crypticcoin_note_encryption::{batch, try_compact_note_decryption, try_note_decryption};
 
 #[cfg(unix)]
 use pprof::criterion::{Output, PProfProfiler};

@@ -13,7 +13,7 @@ use orchard::{
     Bundle,
 };
 use rand::rngs::OsRng;
-use zcash_note_encryption::try_note_decryption;
+use crypticcoin_note_encryption::try_note_decryption;
 
 fn verify_bundle(bundle: &Bundle<Authorized, i64>, vk: &VerifyingKey) {
     assert!(matches!(bundle.verify_proof(vk), Ok(())));
