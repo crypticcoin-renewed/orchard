@@ -17,15 +17,15 @@ fn hasher(personal: &[u8; 16]) -> State {
 
 /// Write disjoint parts of each Orchard shielded action as 3 separate hashes:
 /// * \[(nullifier, cmx, ephemeral_key, enc_ciphertext\[..52\])*\] personalized
-///   with ZCASH_ORCHARD_ACTIONS_COMPACT_HASH_PERSONALIZATION
+///   with CRYPTICCOIN_ORCHARD_ACTIONS_COMPACT_HASH_PERSONALIZATION
 /// * \[enc_ciphertext\[52..564\]*\] (memo ciphertexts) personalized
-///   with ZCASH_ORCHARD_ACTIONS_MEMOS_HASH_PERSONALIZATION
+///   with CRYPTICCOIN_ORCHARD_ACTIONS_MEMOS_HASH_PERSONALIZATION
 /// * \[(cv, rk, enc_ciphertext\[564..\], out_ciphertext)*\] personalized
-///   with ZCASH_ORCHARD_ACTIONS_NONCOMPACT_HASH_PERSONALIZATION
+///   with CRYPTICCOIN_ORCHARD_ACTIONS_NONCOMPACT_HASH_PERSONALIZATION
 /// as defined in [ZIP-244: Transaction Identifier Non-Malleability][zip244]
 ///
 /// Then, hash these together along with (flags, value_balance_orchard, anchor_orchard),
-/// personalized with ZCASH_ORCHARD_ACTIONS_HASH_PERSONALIZATION
+/// personalized with CRYPTICCOIN_ORCHARD_ACTIONS_HASH_PERSONALIZATION
 ///
 /// [zip244]: https://zips.z.cash/zip-0244
 pub(crate) fn hash_bundle_txid_data<A: Authorization, V: Copy + Into<i64>>(
@@ -69,7 +69,7 @@ pub(crate) fn hash_bundle_txid_data<A: Authorization, V: Copy + Into<i64>>(
 ///
 /// [zip244]: https://zips.z.cash/zip-0244
 pub fn hash_bundle_txid_empty() -> Blake2bHash {
-    hasher(ZCASH_ORCHARD_HASH_PERSONALIZATION).finalize()
+    hasher(CRYPTICCOIN_ORCHARD_HASH_PERSONALIZATION).finalize()
 }
 
 /// Construct the commitment to the authorizing data of an
@@ -78,7 +78,7 @@ pub fn hash_bundle_txid_empty() -> Blake2bHash {
 ///
 /// [zip244]: https://zips.z.cash/zip-0244
 pub(crate) fn hash_bundle_auth_data<V>(bundle: &Bundle<Authorized, V>) -> Blake2bHash {
-    let mut h = hasher(ZCASH_ORCHARD_SIGS_HASH_PERSONALIZATION);
+    let mut h = hasher(CRYPTICCOIN_ORCHARD_SIGS_HASH_PERSONALIZATION);
     h.write_all(bundle.authorization().proof().as_ref())
         .unwrap();
     for action in bundle.actions().iter() {
@@ -97,5 +97,5 @@ pub(crate) fn hash_bundle_auth_data<V>(bundle: &Bundle<Authorized, V>) -> Blake2
 ///
 /// [zip244]: https://zips.z.cash/zip-0244
 pub fn hash_bundle_auth_empty() -> Blake2bHash {
-    hasher(ZCASH_ORCHARD_SIGS_HASH_PERSONALIZATION).finalize()
+    hasher(CRYPTICCOIN_ORCHARD_SIGS_HASH_PERSONALIZATION).finalize()
 }
